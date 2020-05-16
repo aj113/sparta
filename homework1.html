@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>숙제 | 원페이지 쇼핑몰</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .mytitle {
+            width: 500px;
+            height: 200px;
+            /* 아래 코드는 배경 이미지 설정 및 정렬코드다 */
+            background-image: url("https://kukka.kr/media/images/02-2_Flowers_seasonal/38_butterflyranunculus/1_1.jpg");
+            background-position: center;
+            background-size: cover;
+
+            border-radius: 10px;
+            padding-top: 30px;
+ 
+        }
+
+        .text1 {
+            color:#55585c;
+            margin: 20px auto;
+            width: 500px;
+            text-align: left;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        .wrap {
+            margin: 10px auto;
+            width: 500px;
+        }
+
+        .b1 {
+            margin: 40px auto;
+            width: 500px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function hey(){
+	alert('주문이 완료되었습니다!');
+}
+    </script>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="mytitle"> </div>
+
+        <div class="text1">    
+        <span style="font-size: 18pt;">나를 위한 꽃선물</span><span style="font-size: 13pt"> 월 1회 3만원</span>
+            <br>
+            <p>
+                <span style="font-size: 13pt">나를 위한 꽃을 정기구독 해봅시다!</span>
+            </p>
+            
+            <span style="font-size: 18pt;">주문하기</span>
+            </div>
+        
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">주문자 성함</span>
+            </div>
+            <input type="text" class="form-control" placeholder="이름" aria-label="name"
+                aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01">주문옵션</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01">
+              <option selected>기간</option>
+              <option value="1">1개월</option>
+              <option value="2">2개월</option>
+              <option value="3">3개월</option>
+            </select>
+          </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">주소</span>
+            </div>
+            <textarea class="form-control" placeholder="주소기입 우편번호 포함" aria-label="With textarea"></textarea>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">전화번호</span>
+            </div>
+            <input type="text" class="form-control" placeholder="010-****-****" aria-label="number"
+                aria-describedby="basic-addon1">
+        </div>
+
+        <div class="b1">
+            <button onclick="hey()" type="button" class="btn btn-primary">주문하기</button>
+        </div>
+
+
+    </div>
+</body>
+</body>
+
+</html>
