@@ -55,8 +55,8 @@
 
     <script>
         $(document).ready(function () {
-                alert('다 로딩됐다!')
-                $.ajax({
+            alert('다 로딩됐다!')
+            $.ajax({
                 type: "GET",
                 url: "https://api.manana.kr/exchange/rate.json",
                 data: {},
@@ -64,26 +64,86 @@
                     for (let i = 0; i < response.length; i++) {
                         if (response[i]['name'] == 'USDKRW=X') { $('#exchange').text(response[i]['rate']) }
                     }
-                }})
-            
-                  });
+                }
+            })
 
+        });
+    </script>
+    <script type="text/javascript">
 
-        function hey() {
+        $(document).ready(function () {
+            $('#orders-box').html('');
+            listing();
+        });
+
+        function oders() {
             let name = $('#q1').val();
             let op = $('#option_group').val();
             let address = $('#address1').val();
             let phone = $('#phone2').val();
+            // 2. 제목, 저자, 리뷰 중 하나라도 입력하지 않았을 경우 alert를 띄웁니다.
             if (name == '') {
-                alert('이름을 입력해주세요')
+                alert('주문자 명을 입력해주세요');
+                $('#q1').focus();
+                return;
             } else if (op == '') {
-                alert('기간을 선택해주세요')
+                alert('기간을 선택해주세요');
+                $('#option_group').focus();
+                return;
             } else if (address == '') {
-                alert('주소를 입력해주세요')
-            } else if (phone == '') {
-                alert('휴대폰번호를 입력해주세요')
-            }
-            else { alert('주문이 완료되었습니다!'); }
+                alert('주소를 입력해주세요');
+                $('#address1').focus();
+                return;
+           }  else if (phone == '') {
+                alert('전화번호를 입력해주세요');
+                $('#phone2').focus();
+                return;
+           } 
+
+            // 3. POST /oders 에 저장을 요청합니다.
+            $.ajax({
+                type: 'POST', // 타입을 작성합니다.
+                url: '/oders', // url을 작성합니다.
+                data: {  name_give: name, op_give: op, address_give: address, phone_give: phone }, // data를 작성합니다. },
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        alert(response['msg']);
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+
+        function listing() {
+            // 1. 리뷰 목록을 서버에 요청하기
+            // 2. 요청 성공 여부 확인하기
+            // 3. 요청 성공했을 때 리뷰를 올바르게 화면에 나타내기
+            $.ajax({
+                type: "GET",
+                url: "/oders",
+                data: {},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        let oders = response['oders'];
+                        for (let i = 0; i < oders.length; i++) {
+                            make_table(oders[i]['row'], oders[i]['name'], oders[i]['op'], oders[i]['address'], oders[i]['phone'] )
+                        }
+                        // 2. 성공했을 때 리뷰를 올바르게 화면에 나타내기
+                    } else {
+                        alert('주문을 받아오지 못했습니다');
+                    }
+                }
+            });
+        }
+        function make_table(row, name, op, address, phone) {
+            let temp_html = `<tr>
+                        <td>${row}</td>
+                        <td>${name}</td>
+                        <td>${op}</td>
+                        <td>${address}</td>
+                        <td>${phone}</td>
+                    </tr>`;
+            $('#orders-box').append(temp_html);
         }
     </script>
 </head>
@@ -143,12 +203,32 @@
         </div>
 
         <div class="b1">
-            <button onclick="hey()" type="button" class="btn btn-primary">주문하기</button>
+            <button onclick="oders()" type="button" class="btn btn-primary">주문하기</button>
+        </div>
+        <div class="orders">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">이름</th>
+                        <th scope="col">기간</th>
+                        <th scope="col">주소</th>
+                        <th scope="col">전화번호</th>
+                    </tr>
+                </thead>
+                <tbody id = "orders-box">
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td>123</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-
     </div>
-</body>
 </body>
 
 </html>
